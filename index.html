@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<pre>
+<script>
+    function Item(name, number, bought) {
+        this.name = name;
+        this.number = number;
+        this.bought = bought;
+    }
+    Item.prototype.toString = function() {
+        return `Name: ${this.name}, Number: ${this.number}, Bought: ${this.bought}`;
+    }
+
+    Array.prototype.showList = function () {
+        this.sort(((a, b) => (a.bought > b.bought) ? 0 : a.bought ? 1 : -1));
+        this.forEach((value) => {document.writeln(value + " ")});
+    }
+    Array.prototype.addItem = function (item) {
+        if (!(this.find(element => element.name === item.name) === undefined)) {
+            (this.find(element => element.name === item.name)).number += item.number;
+        } else {
+            this.push(item);
+        }
+    }
+    Array.prototype.buyItem = function (name) {
+        if (!(this.find(element => element.name === name) === undefined)) {
+            (this.find(element => element.name === name)).bought = true;
+        }
+    }
+
+    let products = [new Item("name1", 1, true), new Item("name2", 2, false), new Item("name3", 3, true)];
+    
+    products.showList();
+
+    document.writeln("Add some name2");
+    products.addItem(new Item("name2", 3, false));
+    products.showList();
+
+
+    document.writeln("Buy some name2");
+    products.buyItem("name2");
+    products.showList();
+
+</script>
+</pre>
+</body>
+</html>
